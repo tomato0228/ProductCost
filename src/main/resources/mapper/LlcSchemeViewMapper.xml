@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njust.mapper.LlcSchemeViewMapper">
+  <resultMap id="BaseResultMap" type="com.njust.model.LlcSchemeView">
+    <result column="SCHEME_ID" jdbcType="DECIMAL" property="schemeId" />
+    <result column="PROJECT_ID" jdbcType="DECIMAL" property="projectId" />
+    <result column="PRODUCT_TREE_ID" jdbcType="DECIMAL" property="productTreeId" />
+    <result column="TASK_TREE_ID" jdbcType="DECIMAL" property="taskTreeId" />
+    <result column="RESOURCE_TREE_ID" jdbcType="DECIMAL" property="resourceTreeId" />
+    <result column="TIME_TREE_ID" jdbcType="DECIMAL" property="timeTreeId" />
+    <result column="TECHNOLOGY_TREE_ID" jdbcType="DECIMAL" property="technologyTreeId" />
+    <result column="COST_TREE_ID" jdbcType="DECIMAL" property="costTreeId" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="PRODUCT_TREE_NAME" jdbcType="VARCHAR" property="productTreeName" />
+    <result column="TASK_TREE_NAME" jdbcType="VARCHAR" property="taskTreeName" />
+    <result column="RESOURCE_TREE_NAME" jdbcType="VARCHAR" property="resourceTreeName" />
+    <result column="TIME_TREE_NAME" jdbcType="VARCHAR" property="timeTreeName" />
+    <result column="TECHNOLOGY_TREE_NAME" jdbcType="VARCHAR" property="technologyTreeName" />
+    <result column="COST_TREE_NAME" jdbcType="VARCHAR" property="costTreeName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHEME_ID, PROJECT_ID, PRODUCT_TREE_ID, TASK_TREE_ID, RESOURCE_TREE_ID, TIME_TREE_ID, 
+    TECHNOLOGY_TREE_ID, COST_TREE_ID, PRODUCT_NAME, PRODUCT_TREE_NAME, TASK_TREE_NAME, 
+    RESOURCE_TREE_NAME, TIME_TREE_NAME, TECHNOLOGY_TREE_NAME, COST_TREE_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.njust.model.LlcSchemeViewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from llc_scheme_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.njust.model.LlcSchemeViewExample">
+    delete from llc_scheme_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.njust.model.LlcSchemeView">
+    insert into llc_scheme_view (SCHEME_ID, PROJECT_ID, PRODUCT_TREE_ID, 
+      TASK_TREE_ID, RESOURCE_TREE_ID, TIME_TREE_ID, 
+      TECHNOLOGY_TREE_ID, COST_TREE_ID, PRODUCT_NAME, 
+      PRODUCT_TREE_NAME, TASK_TREE_NAME, RESOURCE_TREE_NAME, 
+      TIME_TREE_NAME, TECHNOLOGY_TREE_NAME, COST_TREE_NAME
+      )
+    values (#{schemeId,jdbcType=DECIMAL}, #{projectId,jdbcType=DECIMAL}, #{productTreeId,jdbcType=DECIMAL}, 
+      #{taskTreeId,jdbcType=DECIMAL}, #{resourceTreeId,jdbcType=DECIMAL}, #{timeTreeId,jdbcType=DECIMAL}, 
+      #{technologyTreeId,jdbcType=DECIMAL}, #{costTreeId,jdbcType=DECIMAL}, #{productName,jdbcType=VARCHAR}, 
+      #{productTreeName,jdbcType=VARCHAR}, #{taskTreeName,jdbcType=VARCHAR}, #{resourceTreeName,jdbcType=VARCHAR}, 
+      #{timeTreeName,jdbcType=VARCHAR}, #{technologyTreeName,jdbcType=VARCHAR}, #{costTreeName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.njust.model.LlcSchemeView">
+    insert into llc_scheme_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schemeId != null">
+        SCHEME_ID,
+      </if>
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="productTreeId != null">
+        PRODUCT_TREE_ID,
+      </if>
+      <if test="taskTreeId != null">
+        TASK_TREE_ID,
+      </if>
+      <if test="resourceTreeId != null">
+        RESOURCE_TREE_ID,
+      </if>
+      <if test="timeTreeId != null">
+        TIME_TREE_ID,
+      </if>
+      <if test="technologyTreeId != null">
+        TECHNOLOGY_TREE_ID,
+      </if>
+      <if test="costTreeId != null">
+        COST_TREE_ID,
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME,
+      </if>
+      <if test="productTreeName != null">
+        PRODUCT_TREE_NAME,
+      </if>
+      <if test="taskTreeName != null">
+        TASK_TREE_NAME,
+      </if>
+      <if test="resourceTreeName != null">
+        RESOURCE_TREE_NAME,
+      </if>
+      <if test="timeTreeName != null">
+        TIME_TREE_NAME,
+      </if>
+      <if test="technologyTreeName != null">
+        TECHNOLOGY_TREE_NAME,
+      </if>
+      <if test="costTreeName != null">
+        COST_TREE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schemeId != null">
+        #{schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="productTreeId != null">
+        #{productTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="taskTreeId != null">
+        #{taskTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceTreeId != null">
+        #{resourceTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="timeTreeId != null">
+        #{timeTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="technologyTreeId != null">
+        #{technologyTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="costTreeId != null">
+        #{costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productTreeName != null">
+        #{productTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTreeName != null">
+        #{taskTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceTreeName != null">
+        #{resourceTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeTreeName != null">
+        #{timeTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="technologyTreeName != null">
+        #{technologyTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="costTreeName != null">
+        #{costTreeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.njust.model.LlcSchemeViewExample" resultType="java.lang.Long">
+    select count(*) from llc_scheme_view
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update llc_scheme_view
+    <set>
+      <if test="record.schemeId != null">
+        SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productTreeId != null">
+        PRODUCT_TREE_ID = #{record.productTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taskTreeId != null">
+        TASK_TREE_ID = #{record.taskTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resourceTreeId != null">
+        RESOURCE_TREE_ID = #{record.resourceTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timeTreeId != null">
+        TIME_TREE_ID = #{record.timeTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.technologyTreeId != null">
+        TECHNOLOGY_TREE_ID = #{record.technologyTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costTreeId != null">
+        COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productName != null">
+        PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productTreeName != null">
+        PRODUCT_TREE_NAME = #{record.productTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTreeName != null">
+        TASK_TREE_NAME = #{record.taskTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceTreeName != null">
+        RESOURCE_TREE_NAME = #{record.resourceTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeTreeName != null">
+        TIME_TREE_NAME = #{record.timeTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.technologyTreeName != null">
+        TECHNOLOGY_TREE_NAME = #{record.technologyTreeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.costTreeName != null">
+        COST_TREE_NAME = #{record.costTreeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update llc_scheme_view
+    set SCHEME_ID = #{record.schemeId,jdbcType=DECIMAL},
+      PROJECT_ID = #{record.projectId,jdbcType=DECIMAL},
+      PRODUCT_TREE_ID = #{record.productTreeId,jdbcType=DECIMAL},
+      TASK_TREE_ID = #{record.taskTreeId,jdbcType=DECIMAL},
+      RESOURCE_TREE_ID = #{record.resourceTreeId,jdbcType=DECIMAL},
+      TIME_TREE_ID = #{record.timeTreeId,jdbcType=DECIMAL},
+      TECHNOLOGY_TREE_ID = #{record.technologyTreeId,jdbcType=DECIMAL},
+      COST_TREE_ID = #{record.costTreeId,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      PRODUCT_TREE_NAME = #{record.productTreeName,jdbcType=VARCHAR},
+      TASK_TREE_NAME = #{record.taskTreeName,jdbcType=VARCHAR},
+      RESOURCE_TREE_NAME = #{record.resourceTreeName,jdbcType=VARCHAR},
+      TIME_TREE_NAME = #{record.timeTreeName,jdbcType=VARCHAR},
+      TECHNOLOGY_TREE_NAME = #{record.technologyTreeName,jdbcType=VARCHAR},
+      COST_TREE_NAME = #{record.costTreeName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
