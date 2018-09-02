@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>编辑方案-复杂产品费用估算平台-LLC 1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../static/css/font.css">
+    <link rel="stylesheet" href="../../static/css/weadmin.css">
+    <script src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="./editProject.js" charset="utf-8"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+<div class="weadmin-body">
+    <form class="layui-form" lay-filter="addProjectPlanFrom">
+        <div class="layui-form-item">
+            <label for="projectName" class="layui-form-label">
+                项目名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="projectName" name="projectName" required="" lay-verify="required" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <button class="layui-btn" lay-filter="editProjectName" lay-submit="">保存</button>
+        </div>
+    </form>
+
+    <div class="weadmin-block">
+        <button class="layui-btn layui-btn-danger" data-type="delAll"><i class="layui-icon">&#xe640;</i>批量删除</button>
+        <button class="layui-btn" id="projectPlanListAdd" data-type="projectPlanAdd"><i class="layui-icon">&#xe61f;</i>添加
+        </button>
+    </div>
+
+    <table id="projectPlanList" class="layui-table" lay-filter="projectPlanList"/>
+
+
+    <script type="text/html" id="barProjectPlanList">
+        <a class="layui-btn layui-btn-xs" lay-event="projectPlanEdit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="projectPlanDel">删除</a>
+    </script>
+
+</div>
+</body>
+
+</html>
