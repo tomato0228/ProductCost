@@ -5,6 +5,7 @@ import com.njust.mapper.LlcProjectMapper;
 import com.njust.model.LlcProject;
 import com.njust.model.LlcProjectExample;
 import com.njust.service.LlcProjectService;
+import com.njust.utils.GetDateBaseName;
 import com.njust.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,17 @@ public class LlcProjectServiceImpl implements LlcProjectService {
     LlcProjectMapper llcProjectMapper;
 
     @Override
-    public Map<String, Object> creatLlcProject(JSONObject object) throws Exception {
-        Map<String, Object> resultSet = new HashMap<>();
+    public Map<String, Object> insertLlcProject(JSONObject object) throws Exception {
+        Map<String, Object> resultSet = new HashMap<>(16);
         try {
             LlcProject llcProject = new LlcProject();
-            llcProject.setProjectName(object.getString("projectId"));
+            llcProject.setProjectName(object.getString("projectName"));
+            llcProject.setProjectId(llcProjectMapper.maxId() + 1);
             llcProjectMapper.insertSelective(llcProject);
             resultSet.put("code", 0);
         } catch (Exception e) {
             resultSet.put("code", 100);
+            e.printStackTrace();
         }
         return resultSet;
     }
@@ -41,7 +44,7 @@ public class LlcProjectServiceImpl implements LlcProjectService {
     @Override
     public Map<String, Object> getLlcProjectByLike(JSONObject object) throws Exception {
         int total = 0;
-        Map<String, Object> resultSet = new HashMap<>();
+        Map<String, Object> resultSet = new HashMap<>(16);
         List<LlcProject> llcProjects;
         try {
             LlcProjectExample llcProjectExample = new LlcProjectExample();
@@ -50,12 +53,15 @@ public class LlcProjectServiceImpl implements LlcProjectService {
             if (!StringUtil.isNULLOREmpty(object.getString("projectName"))) {
                 criteria.andProjectNameLike("%" + object.getString("projectName") + "%");
             }
+            llcProjects = llcProjectMapper.selectByExample(llcProjectExample);
+            if (llcProjects != null) {
+                total = llcProjects.size();
+            }
             //排序
             String sort = object.getString("sort");
             String order = object.getString("order");
-            if (sort == null || order == null) {
-                //todo 错误排序名错误
-            } else {
+            if (sort != null && order != null) {
+                sort = GetDateBaseName.getSortName(sort);
                 llcProjectExample.setOrderByClause(sort + " " + order);
             }
             //分页
@@ -68,9 +74,6 @@ public class LlcProjectServiceImpl implements LlcProjectService {
                 }
             }
             llcProjects = llcProjectMapper.selectByExample(llcProjectExample);
-            if (llcProjects != null) {
-                total = llcProjects.size();
-            }
             resultSet.put("code", 0);
             resultSet.put("msg", "获取项目列表成功！");
             resultSet.put("count", total);
@@ -86,6 +89,28 @@ public class LlcProjectServiceImpl implements LlcProjectService {
 
     @Override
     public Map<String, Object> updateLlcProjectInfo(JSONObject object) throws Exception {
-        return null;
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            LlcProject llcProject = new LlcProject();
+            llcProject.setProjectId(object.getInteger("projectId"));
+            llcProject.setProjectName(object.getString("projectName"));
+            llcProjectMapper.updateByPrimaryKeySelective(llcProject);
+            resultSet.put("code", 0);
+        } catch (Exception e) {
+            resultSet.put("code", 100);
+        }
+        return resultSet;
+    }
+
+    @Override
+    public Map<String, Object> deleteLlcProject(JSONObject object) throws Exception {
+        Map<String, Object> resultSet = new HashMap<>(16);
+        try {
+            llcProjectMapper.deleteByPrimaryKey(object.getInteger("projectId"));
+            resultSet.put("code", 0);
+        } catch (Exception e) {
+            resultSet.put("code", 100);
+        }
+        return resultSet;
     }
 }

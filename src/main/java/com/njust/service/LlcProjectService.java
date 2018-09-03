@@ -18,7 +18,7 @@ public interface LlcProjectService {
      * @return 是否创建成功
      * @throws Exception 处理异常
      */
-    Map<String, Object> creatLlcProject(JSONObject object) throws Exception;
+    Map<String, Object> insertLlcProject(JSONObject object) throws Exception;
 
     /**
      * 项目按项目名称模糊查询
@@ -38,4 +38,13 @@ public interface LlcProjectService {
      * @throws Exception 处理异常
      */
     Map<String, Object> updateLlcProjectInfo(JSONObject object) throws Exception;
+
+    /**
+     * 删除项目
+     *
+     * @param object 删除项目的ID
+     * @return 是否删除成功
+     * @throws Exception 处理异常
+     */
+    Map<String, Object> deleteLlcProject(JSONObject object) throws Exception;
 }

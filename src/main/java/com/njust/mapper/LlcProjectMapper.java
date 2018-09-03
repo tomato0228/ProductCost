@@ -2,11 +2,14 @@ package com.njust.mapper;
 
 import com.njust.model.LlcProject;
 import com.njust.model.LlcProjectExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface LlcProjectMapper {
     long countByExample(LlcProjectExample example);
+
+    int maxId();
 
     int deleteByExample(LlcProjectExample example);
 

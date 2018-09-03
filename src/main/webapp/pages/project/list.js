@@ -12,6 +12,7 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
         elem: '#projectList'
         , width: 803
         , url: '/Project/getProjectList'
+        , method: 'POST'
         //,height: 274
         , page: true
         /*
@@ -23,7 +24,7 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
             , layout: ['limit', 'prev', 'page', 'next', 'count'] //自定义分页布局
         }
         */
-        , limits: [5, 10, 15, 20, 30, 50, 100]
+        , limits: [1, 5, 10, 15, 20, 30, 50, 100]
         , limit: 10 //每页默认显示的数量
         , cols: [[ //标题栏
             {type: 'checkbox', fixed: 'left'}
@@ -69,12 +70,12 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
             layer.confirm('真的删除行么', function (index) {
                 layer.close(index)
                 $.ajax({
-                    url: '',
+                    url: '/Project/deleteProject',
                     method: 'post',
                     data: data,
                     dataType: 'JSON',
                     success: function (res) {
-                        if (res.code === '0') {
+                        if (res.code === 0) {
                             layer.msg('删除成功')
                             obj.del()
                         } else {

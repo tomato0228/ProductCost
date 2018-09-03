@@ -36,4 +36,25 @@ public class LlcProjectController {
         JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
         return JSONObject.parseObject(JSON.toJSONString(llcProjectService.getLlcProjectByLike(obj)));
     }
+
+    @PostMapping(value = "/updateProject")
+    @ResponseBody
+    public JSONObject updateProject(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        return JSONObject.parseObject(JSON.toJSONString(llcProjectService.updateLlcProjectInfo(obj)));
+    }
+
+    @PostMapping(value = "/addProject")
+    @ResponseBody
+    public JSONObject addProject(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        return JSONObject.parseObject(JSON.toJSONString(llcProjectService.insertLlcProject(obj)));
+    }
+
+    @PostMapping(value = "/deleteProject")
+    @ResponseBody
+    public JSONObject deleteProject(@RequestParam Map map) throws Exception {
+        JSONObject obj = JSONObject.parseObject(JSON.toJSONString(map));
+        return JSONObject.parseObject(JSON.toJSONString(llcProjectService.deleteLlcProject(obj)));
+    }
 }

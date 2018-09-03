@@ -89,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from llc_project
     where PROJECT_ID = #{projectId,jdbcType=DECIMAL}
@@ -132,6 +132,9 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="maxId" resultType="java.lang.Integer">
+    select max(PROJECT_ID) from llc_project
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update llc_project

@@ -62,12 +62,12 @@
             var myDate = data.field
             //发异步，把数据提交后台
             $.ajax({
-                url: '',
+                url: '/Project/addProject',
                 dataType: 'JSON',
                 type: 'post',
                 data: myDate,
                 success: function (data) {
-                    if (data.code === '0') {
+                    if (data.code === 0) {
                         layer.alert('增加成功', { icon: 6 }, function () {
                             var index = parent.layer.getFrameIndex(window.name)
                             parent.reloadTableData()
