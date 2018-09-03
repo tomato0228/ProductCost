@@ -36,7 +36,7 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
             initSort: obj
             //,page: {curr: 1} //重新从第一页开始
             , where: { //重新请求服务端
-                key: obj.field //排序字段
+                sort: obj.field //排序字段
                 , order: obj.type //排序方式
             }
         })
@@ -48,14 +48,15 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
         myDate.projectId = projectNameVal.projectId
         //发异步，把数据提交后台
         $.ajax({
-            url: '',
+            url: '/Project/updateProject',
             dataType: 'JSON',
             type: 'post',
             data: myDate,
             success: function (data) {
-                if (data.code === '0') {
+                if (data.code === 0) {
                     layer.msg('修改成功')
-                    setVal(data.projectVal)
+                    setVal(myDate.projectName)
+                    parent.reloadTableData()
                     form.render()
                 } else {
                     layer.msg('修改失败')
@@ -89,7 +90,7 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
                     data: data,
                     dataType: 'JSON',
                     success: function (res) {
-                        if (res.code === '0') {
+                        if (res.code === 0) {
                             layer.msg('删除成功')
                             obj.del()
                         } else {
@@ -138,7 +139,7 @@ layui.use(['form', 'admin', 'jquery', 'table', 'layer'], function () {
                         dataType: 'JSON',
                         data: delList,
                         success: function (data, statusText) {
-                            if (data.code === '0') {
+                            if (data.code === 0) {
                                 layer.msg('删除成功')
                                 table.reload('projectPlanList', {})
                             } else {
